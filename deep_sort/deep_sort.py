@@ -27,6 +27,7 @@ class DeepSort(object):
             metric, max_iou_distance=max_iou_distance, max_age=max_age, n_init=n_init)
 
     def update(self, bbox_xywh, confidences, classes, ids, ori_img, use_yolo_preds=False):
+        ori_img = np.array(ori_img).astype("uint8")
         self.height, self.width = ori_img.shape[:2]
         # generate detections
         features = self._get_features(bbox_xywh, ori_img)
@@ -55,7 +56,7 @@ class DeepSort(object):
                 x1, y1, x2, y2 = self._tlwh_to_xyxy(box)
             track_id = track.track_id
             class_id = track.class_id
-            outputs.append(np.array([x1, y1, x2, y2, track_id, class_id], dtype=np.int))
+            outputs.append(np.array([x1, y1, x2, y2, track_id, class_id], dtype=np.int32))
         if len(outputs) > 0:
             outputs = np.stack(outputs, axis=0)
         return outputs

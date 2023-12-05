@@ -160,7 +160,7 @@ class Track:
         self.features.append(detection.feature)
         self.class_id = class_id
 
-        self.detection_ids.append(detection.did)
+        self.detection_ids.append(detection.id)
         self.confs.append(detection.confidence)
 
         self.hits += 1
